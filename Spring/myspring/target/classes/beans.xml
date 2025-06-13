@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd"
+             default-autowire="byType">
+
+   <bean id="u1" class="com.hexaware.myspring.User">
+        <property name="name" value="Nandha"/>
+        <property name="password" value="123"/>
+    </bean>
+    
+     <bean id="u2" class="com.hexaware.myspring.User">
+          <constructor-arg  index="0" value="Sam"/>
+          <constructor-arg  index="1" value="sam334"/>
+      </bean>
+     
+     <bean id="r1" class="com.hexaware.myspring.Role">
+        <property name="roleName" value="Manager"/>
+        <property name="description" value="Coordinates the teams"/>
+    </bean>
+    
+      <bean id="u3" class="com.hexaware.myspring.User">
+        <property name="name" value="Jay"/>
+        <property name="password" value="2525"/>
+    </bean>
+</beans>

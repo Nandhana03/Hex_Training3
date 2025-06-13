@@ -1,0 +1,235 @@
+CREATE OR REPLACE PROCEDURE prcCursorShow 
+AS
+BEGIN
+   DECLARE 
+      CURSOR cursor_bank IS 
+         SELECT accno, cust_name, branch, acc_type, balance 
+         FROM Bank;
+ 
+      v_accno     number  
+      v_name      Bank.cust_name%TYPE;
+      v_branch    Bank.branch%TYPE;
+      v_type      Bank.acc_type%TYPE;
+      v_balance   Bank.balance%TYPE;
+      cnt         NUMBER;
+ 
+   BEGIN
+      SELECT COUNT(*) INTO cnt FROM Bank;
+      OPEN cursor_bank;
+      LOOP
+         FETCH cursor_bank INTO v_accno, v_name, v_branch, v_type, v_balance;
+         DBMS_OUTPUT.PUT_LINE('--------------------------------');
+         DBMS_OUTPUT.PUT_LINE('Account No     : ' || v_accno);
+         DBMS_OUTPUT.PUT_LINE('Customer Name  : ' || v_name);
+         DBMS_OUTPUT.PUT_LINE('Branch         : ' || v_branch);
+         DBMS_OUTPUT.PUT_LINE('Account Type   : ' || v_type);
+         DBMS_OUTPUT.PUT_LINE('Balance        : ' || v_balance);
+         DBMS_OUTPUT.PUT_LINE('--------------------------------');
+         EXIT WHEN cursor_bank%ROWCOUNT = cnt;
+      END LOOP;
+      CLOSE cursor_bank;
+   END;
+END;
+
+
+
+
+
+
+CREATE OR REPLACE PROCEDURE prcCursorShow 
+AS
+BEGIN
+   DECLARE 
+      CURSOR cursor_book IS 
+         SELECT book_id, book_name, category, author, price 
+         FROM Books where category="IT";
+ 
+      v_book_id     number  
+      v_book_name      Books.book_name%TYPE;
+      v_category    Books.category%TYPE;
+      v_author      Books.author%TYPE;
+      v_price   Bank.price%TYPE;
+      cnt         NUMBER;
+ 
+   BEGIN
+      SELECT COUNT(*) INTO cnt FROM Books;
+      OPEN cursor_book;
+      LOOP
+         FETCH cursor_bank INTO v_book_id, v_book_name, v_category, v_author, v_price;
+         DBMS_OUTPUT.PUT_LINE('--------------------------------');
+         DBMS_OUTPUT.PUT_LINE('Book Id     : ' || v_book_id);
+         DBMS_OUTPUT.PUT_LINE('Book Name  : ' || v_book_name);
+         DBMS_OUTPUT.PUT_LINE('Category         : ' || v_category);
+         DBMS_OUTPUT.PUT_LINE('Author   : ' || v_author);
+         DBMS_OUTPUT.PUT_LINE('Price       : ' || v_price);
+         DBMS_OUTPUT.PUT_LINE('--------------------------------');
+         EXIT WHEN cursor_book%ROWCOUNT = cnt;
+      END LOOP;
+      CLOSE cursor_book;
+   END;
+END;
+
+
+ DECLARE
+   v_user VARCHAR2(20) := '&user';
+   v_pwd  VARCHAR2(20) := '&pwd';
+
+BEGIN
+   IF v_user = 'Hexaware' AND v_pwd = '123' THEN
+      DBMS_OUTPUT.PUT_LINE('Valid');
+   ELSE
+      DBMS_OUTPUT.PUT_LINE('Invalid');
+   END IF;
+END;
+/
+
+
+loop:
+DECLARE
+  n NUMBER := &enterANo;
+  isPrime BOOLEAN := TRUE;
+BEGIN
+  IF n <= 1 THEN
+    DBMS_OUTPUT.PUT_LINE('Not a prime number');
+  ELSE
+    FOR i IN 2..n-1 LOOP
+      IF MOD(n, i) = 0 THEN
+        isPrime := FALSE;
+        EXIT;
+      END IF;
+    END LOOP;
+
+    IF isPrime THEN
+      DBMS_OUTPUT.PUT_LINE('Prime');
+    ELSE
+      DBMS_OUTPUT.PUT_LINE('Not Prime');
+    END IF;
+  END IF;
+END;
+/
+
+
+to work with table:
+ 
+set serveroutput on;
+ 
+ 
+declare
+ 
+Roll number;
+fee number;
+ 
+ 
+begin
+ 
+select roll,fee into Roll,fee from student
+where roll=101;
+ 
+ 
+if fee>200 then 
+  update student set fee=fee+100 where roll=101;
+ 
+ 
+else
+     update student set fee=fee+200 where roll=101;
+ 
+end if;
+DBMS_OUTPUT.PUT_LINE( Roll  ||   fee);
+ 
+end;
+/
+
+fns and procedures:
+
+CREATE OR REPLACE PROCEDURE CalculateBonus(salary IN NUMBER) 
+AS
+BEGIN
+   IF salary <= 5000 THEN
+       DBMS_OUTPUT.PUT_LINE('Total salary is ' || (salary + (salary * 0.05)));
+   ELSE
+       DBMS_OUTPUT.PUT_LINE('Total salary is ' || (salary + (salary * 0.10)));
+   END IF;
+END;
+/
+
+BEGIN
+  CalculateBonus(16);
+END;
+/
+
+
+
+create or replace function calToal(salary in number)
+
+return number
+
+as
+ 
+    bonus number;
+ 
+    total_salary number;
+ 
+begin
+ 
+    if salary <= 5000 then
+ 
+        bonus := salary * 0.05;
+ 
+    elsif salary > 5000 then
+ 
+        bonus := salary * 0.10;
+ 
+    else
+ 
+        bonus := 0;
+ 
+    end if;
+
+    total_salary := salary + bonus;
+
+
+  return   total_salary;
+
+end;
+ 
+/
+ 
+ 
+declare
+
+ts number;
+
+begin
+ 
+    ts:=calToal(5000);
+
+dbms_output.put_line(ts);
+
+    end ;
+
+   /
+ 
+trigger:
+
+CREATE OR REPLACE TRIGGER BankTr
+AFTER INSERT ON transaction
+FOR EACH ROW
+WHEN (NEW.TRANS_TYPE = 'deposit')
+BEGIN
+    UPDATE customer
+    SET balance = balance + :NEW.amount
+    WHERE cust_id = :NEW.cust_id;
+END;
+/
+
+
+set serveroutput on;
+declare
+  b varchar2(100):='&book';
+  p number;
+begin
+  select price into p from book where lower(name)=lower(b);
+  if instr(lower(b),'it')>0 then p:=p*0.95; else p:=p*0.9; end if;
+  dbms_output.put_line(p);
+end;
+/

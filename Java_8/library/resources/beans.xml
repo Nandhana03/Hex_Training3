@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd"
+       default-autowire="byType">
+
+    <!-- Department Bean -->
+    <bean id="r1" class="com.spring.library.Dept">
+        <property name="name" value="IT"/>
+    </bean>
+
+    <!-- Book Bean 1: for testing init/destroy -->
+    <bean id="b2" class="com.spring.library.Book">
+        <property name="code" value="101"/>
+        <property name="name" value="Java Programming"/>
+        <property name="price" value="350.0"/>
+        <!--  <property name="d" ref="r1"/> -->
+    </bean>
+
+    <!-- Book Bean 2: another book if needed -->
+    <bean id="u1" class="com.spring.library.Book">
+        <property name="code" value="202"/>
+        <property name="name" value="C++"/>
+        <property name="price" value="200.0"/>
+        <!--  <property name="d" ref="r1"/> -->
+    </bean>
+    
+    <bean id="b1" class="com.spring.library.Book"   >
+        <property name="code" value="301"/>
+        <property name="name" value="dsa"/>
+        <property name="price" value="2000"/>
+        <property name="cityList"> <!-- this is of list's one -->
+        
+        <list>
+        
+          <value> delhi</value>
+                    <value> pune</value>
+          
+        
+        </list>
+        
+        
+        
+        
+        </property>
+    </bean>
+    <bean id="b3" class="com.spring.library.Book">
+    <property name="sales">
+                 
+              <map>
+              
+              <entry key="pune" value="3000"/>
+              
+                            <entry key="delhi" value="4000"/>
+              
+              
+              </map> <!-- this is of map's one -->
+        
+                </property>
+        </bean>
+</beans>

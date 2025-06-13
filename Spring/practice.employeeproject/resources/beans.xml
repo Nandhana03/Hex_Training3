@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd"
+       default-autowire="byType">
+       
+       
+       <!--   private int empId;
+	private String name;
+	private double salary;
+	private Map address;  // Key: type (home/office), Value: address
+	Project project;
+	-->
+	
+	<!--  for task 1- xml based configuration -->
+	<bean id="p1" class="com.spring.practice.employeeproject.Project">
+        <property name="pId" value="1"/>
+        <property name="duration" value="one year"/>
+        <property name="cost" value="20000000.00"/>
+    </bean>
+    
+       <bean id="e1" class="com.spring.practice.employeeproject.Employee">
+            <property name="name" value="Nandha" />
+            <property name="salary" value="40000"/>
+            <property name="project" ref="p1"/>
+            <property name="address">
+                 <map>
+                      <entry key="home" value="chennai"/>
+                      <entry key="office" value="mumbai"/>
+                 </map>
+        
+            </property>
+       </bean>
+       
+       <!-- for task 3 - postconstruct and destroy -->
+       
+       <bean id="p3" class="com.spring.practice.employeeproject.Project">
+        <property name="pId" value="3"/>
+        <property name="duration" value="eleven months"/>
+        <property name="cost" value="20000000.00"/>
+    </bean>
+    
+       <bean id="e3" class="com.spring.practice.employeeproject.Employee1">
+            <property name="name" value="Ajay" />
+            <property name="salary" value="40000"/>
+            <property name="project" ref="p3"/>
+            <property name="address">
+                 <map>
+                      <entry key="home" value="chennai"/>
+                      <entry key="office" value="hyderabad"/>
+                 </map>
+            </property>
+       </bean>
+       
+       <!-- for task 4 - initializing bean ,disposable bean -->
+       <bean id="p4" class="com.spring.practice.employeeproject.Project">
+        <property name="pId" value="4"/>
+        <property name="duration" value="seven months"/>
+        <property name="cost" value="40000000.00"/>
+    </bean>
+    
+       <bean id="e4" class="com.spring.practice.employeeproject.Employee1">
+            <property name="name" value="Jay" />
+            <property name="salary" value="50000"/>
+            <property name="project" ref="p4"/>
+            <property name="address">
+                 <map>
+                      <entry key="home" value="chennai"/>
+                      <entry key="office" value="Kolkata"/>
+                 </map>
+            </property>
+       </bean>
+       
+       
+ </beans>
